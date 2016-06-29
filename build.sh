@@ -9,8 +9,9 @@ APPD_SDK=/home/stevew/AppDynamics/appdynamics-sdk-native/sdk_lib
 rm *.o *.so *wrap.c *.pm > /dev/null 2>&1
 
 #get flags used to compile Perl
+PERL_INC=$(perl -e 'use Config; print "$Config{archlib}\n";')/CORE
 CFLAGS=$(perl -MConfig -e "print \$Config{ccflags}")
-CFLAGS="-fPIC -I $APPD_SDK -I/usr/lib/perl/5.18.2/CORE $CFLAGS"
+CFLAGS="-fPIC -I $APPD_SDK -I$PERL_INC $CFLAGS"
 
 # swig generates the wrapper code
 swig -perl5 appd.i
